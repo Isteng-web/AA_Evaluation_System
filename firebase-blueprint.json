@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile with role and department information",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["STUDENT", "SUPERVISOR", "FACULTY", "ADMIN"] },
+        "department": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Faculty": {
+      "title": "Faculty",
+      "description": "Faculty specific details",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "rank": { "type": "string" },
+        "department": { "type": "string" },
+        "college": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["name", "department"]
+    },
+    "AcademicPeriod": {
+      "title": "Academic Period",
+      "description": "Semester and Academic Year",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "semester": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "isActive": { "type": "boolean" }
+      },
+      "required": ["semester", "academicYear", "isActive"]
+    },
+    "Section": {
+      "title": "Section",
+      "description": "Course section taught by a faculty member",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "courseCode": { "type": "string" },
+        "courseName": { "type": "string" },
+        "sectionName": { "type": "string" },
+        "facultyId": { "type": "string" },
+        "academicPeriodId": { "type": "string" },
+        "studentCount": { "type": "number" }
+      },
+      "required": ["courseCode", "facultyId", "academicPeriodId"]
+    },
+    "Evaluation": {
+      "title": "Evaluation",
+      "description": "Evaluation form submission (SET or SAF)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["SET", "SAF"] },
+        "evaluatorId": { "type": "string" },
+        "targetFacultyId": { "type": "string" },
+        "sectionId": { "type": "string" },
+        "academicPeriodId": { "type": "string" },
+        "scores": { "type": "array", "items": { "type": "number" } },
+        "comments": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "evaluatorId", "targetFacultyId", "scores", "timestamp"]
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": "User",
+      "description": "User profiles"
+    },
+    "faculty/{facultyId}": {
+      "schema": "Faculty",
+      "description": "Faculty profiles"
+    },
+    "academicPeriods/{periodId}": {
+      "schema": "AcademicPeriod",
+      "description": "Evaluation windows"
+    },
+    "sections/{sectionId}": {
+      "schema": "Section",
+      "description": "Class sections"
+    },
+    "evaluations/{evaluationId}": {
+      "schema": "Evaluation",
+      "description": "Evaluation submissions"
+    }
+  }
+}

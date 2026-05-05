@@ -1,0 +1,6 @@
+{
+  "name": "Faculty Evaluation System",
+  "description": "A comprehensive faculty evaluation platform featuring role-based access for students, supervisors, faculty, and admins, with automated scoring and performance reporting.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
